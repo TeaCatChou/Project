@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Project.Models.Members>
+@{
+    ViewBag.Title = "Insert";
+}
+
+<h2>新增會員</h2>
+<form method="post" action="~/Members/Insert" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">會員帳號</label>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" name="MemberID" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">會員密碼</label>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" name="Password" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">新增</button>
+        </div>
+    </div>
+</form>

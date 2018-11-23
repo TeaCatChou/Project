@@ -1,0 +1,1996 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Calendar">
+          <Key>
+            <PropertyRef Name="CalendarGUID" />
+          </Key>
+          <Property Name="CalendarGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmployeeGUID" Type="uniqueidentifier" />
+          <Property Name="StartTime" Type="datetime" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="EventTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="Opacity" Type="int" />
+          <Property Name="Red" Type="int" />
+          <Property Name="Green" Type="int" />
+          <Property Name="Blue" Type="int" />
+        </EntityType>
+        <EntityType Name="Dashboard">
+          <Key>
+            <PropertyRef Name="DashBoardGUID" />
+          </Key>
+          <Property Name="DashBoardGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SequenceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PositionTop" Type="int" />
+          <Property Name="PositionLeft" Type="int" />
+          <Property Name="WidgetWidth" Type="int" />
+          <Property Name="WidgetHeight" Type="int" />
+          <Property Name="EmployeeGUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentGUID" />
+          </Key>
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParentDepartmentGUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeGUID" />
+          </Key>
+          <Property Name="EmployeeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ManagerGUID" Type="uniqueidentifier" />
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" />
+          <Property Name="TitleGUID" Type="uniqueidentifier" />
+          <Property Name="Picture" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="JobTitle">
+          <Key>
+            <PropertyRef Name="TitleGUID" />
+          </Key>
+          <Property Name="TitleGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TitleID" Type="int" Nullable="false" />
+          <Property Name="TitleName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Meeting">
+          <Key>
+            <PropertyRef Name="MeetingID" />
+          </Key>
+          <Property Name="ProjectGUID" Type="uniqueidentifier" />
+          <Property Name="MeetingID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MeetingName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MeetingDetail">
+          <Key>
+            <PropertyRef Name="MeetingDetailID" />
+          </Key>
+          <Property Name="MeetingID" Type="uniqueidentifier" />
+          <Property Name="MeetingDetailID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MeetingDetailName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="RecorderID" Type="int" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="MemberGUID" />
+          </Key>
+          <Property Name="MemberGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmployeeGUID" Type="uniqueidentifier" />
+          <Property Name="MemberID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="PermissionsGUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="PermissionsGUID" />
+          </Key>
+          <Property Name="PermissionsGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PermissionsID" Type="int" />
+          <Property Name="PermissionsName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PreTasks">
+          <Key>
+            <PropertyRef Name="TaskGUID" />
+          </Key>
+          <Property Name="TaskGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PreTaskGUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectGUID" />
+          </Key>
+          <Property Name="ProjectID" Type="nchar" MaxLength="6" Nullable="false" />
+          <Property Name="ProjectGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequiredDeptGUID" Type="uniqueidentifier" />
+          <Property Name="RequiredDeptPMGUID" Type="uniqueidentifier" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" />
+          <Property Name="EstStartDate" Type="datetime" />
+          <Property Name="EstEndDate" Type="datetime" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="InChargeDeptGUID" Type="uniqueidentifier" />
+          <Property Name="InChargeDeptPMGUID" Type="uniqueidentifier" />
+          <Property Name="ProjectStatusID" Type="int" />
+          <Property Name="ProjectCategoryID" Type="int" />
+          <Property Name="ProjectSupervisorGUID" Type="uniqueidentifier" />
+          <Property Name="IsGeneralManagerConcerned" Type="bit" />
+          <Property Name="ProjectBudget" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ProjectCategory">
+          <Key>
+            <PropertyRef Name="ProjectCategoryID" />
+          </Key>
+          <Property Name="ProjectCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectCategoryName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProjectDiscuss">
+          <Key>
+            <PropertyRef Name="DiscussGUID" />
+          </Key>
+          <Property Name="DiscussGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmployeeGUID" Type="uniqueidentifier" />
+          <Property Name="DiscussTime" Type="datetime" />
+          <Property Name="DiscussContent" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProjectMembers">
+          <Key>
+            <PropertyRef Name="EmployeeGUID" />
+            <PropertyRef Name="ProjectGUID" />
+          </Key>
+          <Property Name="EmployeeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectGUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectRelationDept">
+          <Key>
+            <PropertyRef Name="ProjectGUID" />
+            <PropertyRef Name="DepartmentGUID" />
+          </Key>
+          <Property Name="ProjectGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectStatus">
+          <Key>
+            <PropertyRef Name="ProjectStatusID" />
+          </Key>
+          <Property Name="ProjectStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectStatusName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ResourceCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TaskDetail">
+          <Key>
+            <PropertyRef Name="TaskDetailGUID" />
+          </Key>
+          <Property Name="TaskGUID" Type="uniqueidentifier" />
+          <Property Name="TaskDetailGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TaskDetailName" Type="nvarchar" MaxLength="50" />
+          <Property Name="TaskDetailStatusID" Type="int" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="EmployeeGUID" Type="uniqueidentifier" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TaskDetailStatus">
+          <Key>
+            <PropertyRef Name="TaskDetailStatusID" />
+          </Key>
+          <Property Name="TaskDetailStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskDetailStatusName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TaskModified">
+          <Key>
+            <PropertyRef Name="ModifiedGUID" />
+          </Key>
+          <Property Name="TaskGUID" Type="uniqueidentifier" />
+          <Property Name="ModifiedGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TaskResource">
+          <Key>
+            <PropertyRef Name="ResourceGUID" />
+          </Key>
+          <Property Name="TaskGUID" Type="uniqueidentifier" />
+          <Property Name="ResourceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ResourceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResourceName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="Unit" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="UnitPrice" Type="money" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="TaskGUID" />
+          </Key>
+          <Property Name="ProjectGUID" Type="uniqueidentifier" />
+          <Property Name="TaskGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParentTaskGUID" Type="uniqueidentifier" />
+          <Property Name="TaskID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskName" Type="nvarchar" MaxLength="50" />
+          <Property Name="EstStartDate" Type="datetime" />
+          <Property Name="EstEndDate" Type="datetime" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="EstWorkTime" Type="int" />
+          <Property Name="WorkTime" Type="int" />
+          <Property Name="TaskStatusID" Type="int" />
+          <Property Name="EmployeeGUID" Type="uniqueidentifier" />
+          <Property Name="Tag" Type="nvarchar" MaxLength="10" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="TaskStatusIDChanged" Type="int" />
+        </EntityType>
+        <EntityType Name="TaskStatus">
+          <Key>
+            <PropertyRef Name="TaskStatusID" />
+          </Key>
+          <Property Name="TaskStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskStatusName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WidgetDetail">
+          <Key>
+            <PropertyRef Name="WidgetGUID" />
+          </Key>
+          <Property Name="WidgetGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WidgetName" Type="nvarchar" MaxLength="50" />
+          <Property Name="WidgetDesc" Type="nvarchar" MaxLength="50" />
+          <Property Name="WidgetImagePath" Type="nvarchar" MaxLength="50" />
+          <Property Name="DashBoardGUID" Type="uniqueidentifier" />
+        </EntityType>
+        <Association Name="FK_Calendar_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Calendar" Type="Self.Calendar" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Calendar">
+              <PropertyRef Name="CalendarGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dashboard_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Dashboard" Type="Self.Dashboard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Dashboard">
+              <PropertyRef Name="EmployeeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Department1" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="Department1">
+              <PropertyRef Name="ParentDepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Employee1" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Employee1">
+              <PropertyRef Name="ManagerGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_JobTitle">
+          <End Role="JobTitle" Type="Self.JobTitle" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobTitle">
+              <PropertyRef Name="TitleGUID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="TitleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Meeting_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="Meeting" Type="Self.Meeting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectGUID" />
+            </Principal>
+            <Dependent Role="Meeting">
+              <PropertyRef Name="ProjectGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MeetingDetail_Meeting">
+          <End Role="Meeting" Type="Self.Meeting" Multiplicity="0..1" />
+          <End Role="MeetingDetail" Type="Self.MeetingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meeting">
+              <PropertyRef Name="MeetingID" />
+            </Principal>
+            <Dependent Role="MeetingDetail">
+              <PropertyRef Name="MeetingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Members_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Members" Type="Self.Members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Members">
+              <PropertyRef Name="EmployeeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Members_Permissions">
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="0..1" />
+          <End Role="Members" Type="Self.Members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissions">
+              <PropertyRef Name="PermissionsGUID" />
+            </Principal>
+            <Dependent Role="Members">
+              <PropertyRef Name="PermissionsGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PreTasks_PreTasks">
+          <End Role="PreTasks" Type="Self.PreTasks" Multiplicity="1" />
+          <End Role="PreTasks1" Type="Self.PreTasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PreTasks">
+              <PropertyRef Name="TaskGUID" />
+            </Principal>
+            <Dependent Role="PreTasks1">
+              <PropertyRef Name="PreTaskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PreTasks_Tasks">
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="1" />
+          <End Role="PreTasks" Type="Self.PreTasks" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="TaskGUID" />
+            </Principal>
+            <Dependent Role="PreTasks">
+              <PropertyRef Name="TaskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="RequiredDeptGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Department1">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="InChargeDeptGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="RequiredDeptPMGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Employee1">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="InChargeDeptPMGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Employee2">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="ProjectSupervisorGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_ProjectCategory">
+          <End Role="ProjectCategory" Type="Self.ProjectCategory" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectCategory">
+              <PropertyRef Name="ProjectCategoryID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="ProjectCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_ProjectStatus">
+          <End Role="ProjectStatus" Type="Self.ProjectStatus" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectStatus">
+              <PropertyRef Name="ProjectStatusID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="ProjectStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectDiscuss_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="ProjectDiscuss" Type="Self.ProjectDiscuss" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="ProjectDiscuss">
+              <PropertyRef Name="EmployeeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectMembers_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="ProjectMembers" Type="Self.ProjectMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="ProjectMembers">
+              <PropertyRef Name="EmployeeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectMembers_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="ProjectMembers" Type="Self.ProjectMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectGUID" />
+            </Principal>
+            <Dependent Role="ProjectMembers">
+              <PropertyRef Name="ProjectGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectRelationDept_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="ProjectRelationDept" Type="Self.ProjectRelationDept" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="ProjectRelationDept">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectRelationDept_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="ProjectRelationDept" Type="Self.ProjectRelationDept" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectGUID" />
+            </Principal>
+            <Dependent Role="ProjectRelationDept">
+              <PropertyRef Name="ProjectGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskDetail_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="TaskDetail" Type="Self.TaskDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="TaskDetail">
+              <PropertyRef Name="EmployeeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskDetail_TaskDetailStatus">
+          <End Role="TaskDetailStatus" Type="Self.TaskDetailStatus" Multiplicity="0..1" />
+          <End Role="TaskDetail" Type="Self.TaskDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskDetailStatus">
+              <PropertyRef Name="TaskDetailStatusID" />
+            </Principal>
+            <Dependent Role="TaskDetail">
+              <PropertyRef Name="TaskDetailStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskDetail_Tasks">
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="0..1" />
+          <End Role="TaskDetail" Type="Self.TaskDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="TaskGUID" />
+            </Principal>
+            <Dependent Role="TaskDetail">
+              <PropertyRef Name="TaskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskModified_Tasks">
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="0..1" />
+          <End Role="TaskModified" Type="Self.TaskModified" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="TaskGUID" />
+            </Principal>
+            <Dependent Role="TaskModified">
+              <PropertyRef Name="TaskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskResource_ResourceCategory">
+          <End Role="ResourceCategory" Type="Self.ResourceCategory" Multiplicity="0..1" />
+          <End Role="TaskResource" Type="Self.TaskResource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResourceCategory">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="TaskResource">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskResource_Tasks">
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="0..1" />
+          <End Role="TaskResource" Type="Self.TaskResource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="TaskGUID" />
+            </Principal>
+            <Dependent Role="TaskResource">
+              <PropertyRef Name="TaskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="EmployeeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectGUID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="ProjectGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_TaskStatus">
+          <End Role="TaskStatus" Type="Self.TaskStatus" Multiplicity="0..1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskStatus">
+              <PropertyRef Name="TaskStatusID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="TaskStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WidgetDetail_Dashboard">
+          <End Role="Dashboard" Type="Self.Dashboard" Multiplicity="0..1" />
+          <End Role="WidgetDetail" Type="Self.WidgetDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dashboard">
+              <PropertyRef Name="DashBoardGUID" />
+            </Principal>
+            <Dependent Role="WidgetDetail">
+              <PropertyRef Name="DashBoardGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjectModelStoreContainer">
+          <EntitySet Name="Calendar" EntityType="Self.Calendar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dashboard" EntityType="Self.Dashboard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobTitle" EntityType="Self.JobTitle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Meeting" EntityType="Self.Meeting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MeetingDetail" EntityType="Self.MeetingDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PreTasks" EntityType="Self.PreTasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectCategory" EntityType="Self.ProjectCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectDiscuss" EntityType="Self.ProjectDiscuss" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectMembers" EntityType="Self.ProjectMembers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectRelationDept" EntityType="Self.ProjectRelationDept" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectStatus" EntityType="Self.ProjectStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResourceCategory" EntityType="Self.ResourceCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskDetail" EntityType="Self.TaskDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskDetailStatus" EntityType="Self.TaskDetailStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskModified" EntityType="Self.TaskModified" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskResource" EntityType="Self.TaskResource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskStatus" EntityType="Self.TaskStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WidgetDetail" EntityType="Self.WidgetDetail" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Calendar_Employee" Association="Self.FK_Calendar_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Calendar" EntitySet="Calendar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dashboard_Employee" Association="Self.FK_Dashboard_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Dashboard" EntitySet="Dashboard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_Department" Association="Self.FK_Department_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Department1" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Employee" Association="Self.FK_Employee_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Employee1" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_JobTitle" Association="Self.FK_Employee_JobTitle">
+            <End Role="JobTitle" EntitySet="JobTitle" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Meeting_Project" Association="Self.FK_Meeting_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Meeting" EntitySet="Meeting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MeetingDetail_Meeting" Association="Self.FK_MeetingDetail_Meeting">
+            <End Role="Meeting" EntitySet="Meeting" />
+            <End Role="MeetingDetail" EntitySet="MeetingDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Members_Employee" Association="Self.FK_Members_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Members" EntitySet="Members" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Members_Permissions" Association="Self.FK_Members_Permissions">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="Members" EntitySet="Members" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PreTasks_PreTasks" Association="Self.FK_PreTasks_PreTasks">
+            <End Role="PreTasks" EntitySet="PreTasks" />
+            <End Role="PreTasks1" EntitySet="PreTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PreTasks_Tasks" Association="Self.FK_PreTasks_Tasks">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="PreTasks" EntitySet="PreTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Department" Association="Self.FK_Project_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Department1" Association="Self.FK_Project_Department1">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Employee" Association="Self.FK_Project_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Employee1" Association="Self.FK_Project_Employee1">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Employee2" Association="Self.FK_Project_Employee2">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_ProjectCategory" Association="Self.FK_Project_ProjectCategory">
+            <End Role="ProjectCategory" EntitySet="ProjectCategory" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_ProjectStatus" Association="Self.FK_Project_ProjectStatus">
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectDiscuss_Employee" Association="Self.FK_ProjectDiscuss_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="ProjectDiscuss" EntitySet="ProjectDiscuss" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectMembers_Employee" Association="Self.FK_ProjectMembers_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="ProjectMembers" EntitySet="ProjectMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectMembers_Project" Association="Self.FK_ProjectMembers_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="ProjectMembers" EntitySet="ProjectMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectRelationDept_Department" Association="Self.FK_ProjectRelationDept_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="ProjectRelationDept" EntitySet="ProjectRelationDept" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectRelationDept_Project" Association="Self.FK_ProjectRelationDept_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="ProjectRelationDept" EntitySet="ProjectRelationDept" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskDetail_Employee" Association="Self.FK_TaskDetail_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="TaskDetail" EntitySet="TaskDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskDetail_TaskDetailStatus" Association="Self.FK_TaskDetail_TaskDetailStatus">
+            <End Role="TaskDetailStatus" EntitySet="TaskDetailStatus" />
+            <End Role="TaskDetail" EntitySet="TaskDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskDetail_Tasks" Association="Self.FK_TaskDetail_Tasks">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="TaskDetail" EntitySet="TaskDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskModified_Tasks" Association="Self.FK_TaskModified_Tasks">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="TaskModified" EntitySet="TaskModified" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskResource_ResourceCategory" Association="Self.FK_TaskResource_ResourceCategory">
+            <End Role="ResourceCategory" EntitySet="ResourceCategory" />
+            <End Role="TaskResource" EntitySet="TaskResource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskResource_Tasks" Association="Self.FK_TaskResource_Tasks">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="TaskResource" EntitySet="TaskResource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_Employee" Association="Self.FK_Tasks_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_Project" Association="Self.FK_Tasks_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_TaskStatus" Association="Self.FK_Tasks_TaskStatus">
+            <End Role="TaskStatus" EntitySet="TaskStatus" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WidgetDetail_Dashboard" Association="Self.FK_WidgetDetail_Dashboard">
+            <End Role="Dashboard" EntitySet="Dashboard" />
+            <End Role="WidgetDetail" EntitySet="WidgetDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProjectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Calendar" EntityType="ProjectModel.Calendar" />
+          <EntitySet Name="Dashboard" EntityType="ProjectModel.Dashboard" />
+          <EntitySet Name="Department" EntityType="ProjectModel.Department" />
+          <EntitySet Name="Employee" EntityType="ProjectModel.Employee" />
+          <EntitySet Name="JobTitle" EntityType="ProjectModel.JobTitle" />
+          <EntitySet Name="Meeting" EntityType="ProjectModel.Meeting" />
+          <EntitySet Name="MeetingDetail" EntityType="ProjectModel.MeetingDetail" />
+          <EntitySet Name="Members" EntityType="ProjectModel.Members" />
+          <EntitySet Name="Permissions" EntityType="ProjectModel.Permissions" />
+          <EntitySet Name="PreTasks" EntityType="ProjectModel.PreTasks" />
+          <EntitySet Name="Project" EntityType="ProjectModel.Project" />
+          <EntitySet Name="ProjectCategory" EntityType="ProjectModel.ProjectCategory" />
+          <EntitySet Name="ProjectDiscuss" EntityType="ProjectModel.ProjectDiscuss" />
+          <EntitySet Name="ProjectStatus" EntityType="ProjectModel.ProjectStatus" />
+          <EntitySet Name="ResourceCategory" EntityType="ProjectModel.ResourceCategory" />
+          <EntitySet Name="TaskDetail" EntityType="ProjectModel.TaskDetail" />
+          <EntitySet Name="TaskDetailStatus" EntityType="ProjectModel.TaskDetailStatus" />
+          <EntitySet Name="TaskModified" EntityType="ProjectModel.TaskModified" />
+          <EntitySet Name="TaskResource" EntityType="ProjectModel.TaskResource" />
+          <EntitySet Name="Tasks" EntityType="ProjectModel.Tasks" />
+          <EntitySet Name="TaskStatus" EntityType="ProjectModel.TaskStatus" />
+          <EntitySet Name="WidgetDetail" EntityType="ProjectModel.WidgetDetail" />
+          <AssociationSet Name="FK_Calendar_Employee" Association="ProjectModel.FK_Calendar_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Calendar" EntitySet="Calendar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dashboard_Employee" Association="ProjectModel.FK_Dashboard_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Dashboard" EntitySet="Dashboard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WidgetDetail_Dashboard" Association="ProjectModel.FK_WidgetDetail_Dashboard">
+            <End Role="Dashboard" EntitySet="Dashboard" />
+            <End Role="WidgetDetail" EntitySet="WidgetDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_Department" Association="ProjectModel.FK_Department_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Department1" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Department" Association="ProjectModel.FK_Employee_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Department" Association="ProjectModel.FK_Project_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Department1" Association="ProjectModel.FK_Project_Department1">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Employee" Association="ProjectModel.FK_Employee_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Employee1" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_JobTitle" Association="ProjectModel.FK_Employee_JobTitle">
+            <End Role="JobTitle" EntitySet="JobTitle" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Members_Employee" Association="ProjectModel.FK_Members_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Members" EntitySet="Members" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Employee" Association="ProjectModel.FK_Project_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Employee1" Association="ProjectModel.FK_Project_Employee1">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Employee2" Association="ProjectModel.FK_Project_Employee2">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectDiscuss_Employee" Association="ProjectModel.FK_ProjectDiscuss_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="ProjectDiscuss" EntitySet="ProjectDiscuss" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskDetail_Employee" Association="ProjectModel.FK_TaskDetail_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="TaskDetail" EntitySet="TaskDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_Employee" Association="ProjectModel.FK_Tasks_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Meeting_Project" Association="ProjectModel.FK_Meeting_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Meeting" EntitySet="Meeting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MeetingDetail_Meeting" Association="ProjectModel.FK_MeetingDetail_Meeting">
+            <End Role="Meeting" EntitySet="Meeting" />
+            <End Role="MeetingDetail" EntitySet="MeetingDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Members_Permissions" Association="ProjectModel.FK_Members_Permissions">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="Members" EntitySet="Members" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PreTasks_PreTasks" Association="ProjectModel.FK_PreTasks_PreTasks">
+            <End Role="PreTasks" EntitySet="PreTasks" />
+            <End Role="PreTasks1" EntitySet="PreTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PreTasks_Tasks" Association="ProjectModel.FK_PreTasks_Tasks">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="PreTasks" EntitySet="PreTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_ProjectCategory" Association="ProjectModel.FK_Project_ProjectCategory">
+            <End Role="ProjectCategory" EntitySet="ProjectCategory" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_ProjectStatus" Association="ProjectModel.FK_Project_ProjectStatus">
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_Project" Association="ProjectModel.FK_Tasks_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskResource_ResourceCategory" Association="ProjectModel.FK_TaskResource_ResourceCategory">
+            <End Role="ResourceCategory" EntitySet="ResourceCategory" />
+            <End Role="TaskResource" EntitySet="TaskResource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskDetail_TaskDetailStatus" Association="ProjectModel.FK_TaskDetail_TaskDetailStatus">
+            <End Role="TaskDetailStatus" EntitySet="TaskDetailStatus" />
+            <End Role="TaskDetail" EntitySet="TaskDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskDetail_Tasks" Association="ProjectModel.FK_TaskDetail_Tasks">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="TaskDetail" EntitySet="TaskDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskModified_Tasks" Association="ProjectModel.FK_TaskModified_Tasks">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="TaskModified" EntitySet="TaskModified" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskResource_Tasks" Association="ProjectModel.FK_TaskResource_Tasks">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="TaskResource" EntitySet="TaskResource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_TaskStatus" Association="ProjectModel.FK_Tasks_TaskStatus">
+            <End Role="TaskStatus" EntitySet="TaskStatus" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="ProjectMembers" Association="ProjectModel.ProjectMembers">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="ProjectRelationDept" Association="ProjectModel.ProjectRelationDept">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="ProjectModel.sysdiagrams" />
+        </EntityContainer>
+        <EntityType Name="Calendar">
+          <Key>
+            <PropertyRef Name="CalendarGUID" />
+          </Key>
+          <Property Name="CalendarGUID" Type="Guid" Nullable="false" />
+          <Property Name="EmployeeGUID" Type="Guid" />
+          <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="EventTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Opacity" Type="Int32" />
+          <Property Name="Red" Type="Int32" />
+          <Property Name="Green" Type="Int32" />
+          <Property Name="Blue" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="ProjectModel.FK_Calendar_Employee" FromRole="Calendar" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Dashboard">
+          <Key>
+            <PropertyRef Name="DashBoardGUID" />
+          </Key>
+          <Property Name="DashBoardGUID" Type="Guid" Nullable="false" />
+          <Property Name="SequenceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PositionTop" Type="Int32" />
+          <Property Name="PositionLeft" Type="Int32" />
+          <Property Name="WidgetWidth" Type="Int32" />
+          <Property Name="WidgetHeight" Type="Int32" />
+          <Property Name="EmployeeGUID" Type="Guid" />
+          <NavigationProperty Name="Employee" Relationship="ProjectModel.FK_Dashboard_Employee" FromRole="Dashboard" ToRole="Employee" />
+          <NavigationProperty Name="WidgetDetail" Relationship="ProjectModel.FK_WidgetDetail_Dashboard" FromRole="Dashboard" ToRole="WidgetDetail" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentGUID" />
+          </Key>
+          <Property Name="DepartmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParentDepartmentGUID" Type="Guid" />
+          <NavigationProperty Name="Department1" Relationship="ProjectModel.FK_Department_Department" FromRole="Department" ToRole="Department1" />
+          <NavigationProperty Name="Department2" Relationship="ProjectModel.FK_Department_Department" FromRole="Department1" ToRole="Department" />
+          <NavigationProperty Name="Employee" Relationship="ProjectModel.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
+          <NavigationProperty Name="Project" Relationship="ProjectModel.FK_Project_Department" FromRole="Department" ToRole="Project" />
+          <NavigationProperty Name="Project1" Relationship="ProjectModel.FK_Project_Department1" FromRole="Department" ToRole="Project" />
+          <NavigationProperty Name="Project2" Relationship="ProjectModel.ProjectRelationDept" FromRole="Department" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeGUID" />
+          </Key>
+          <Property Name="EmployeeGUID" Type="Guid" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerGUID" Type="Guid" />
+          <Property Name="DepartmentGUID" Type="Guid" />
+          <Property Name="TitleGUID" Type="Guid" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Calendar" Relationship="ProjectModel.FK_Calendar_Employee" FromRole="Employee" ToRole="Calendar" />
+          <NavigationProperty Name="Dashboard" Relationship="ProjectModel.FK_Dashboard_Employee" FromRole="Employee" ToRole="Dashboard" />
+          <NavigationProperty Name="Department" Relationship="ProjectModel.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
+          <NavigationProperty Name="Employee1" Relationship="ProjectModel.FK_Employee_Employee" FromRole="Employee" ToRole="Employee1" />
+          <NavigationProperty Name="Employee2" Relationship="ProjectModel.FK_Employee_Employee" FromRole="Employee1" ToRole="Employee" />
+          <NavigationProperty Name="JobTitle" Relationship="ProjectModel.FK_Employee_JobTitle" FromRole="Employee" ToRole="JobTitle" />
+          <NavigationProperty Name="Members" Relationship="ProjectModel.FK_Members_Employee" FromRole="Employee" ToRole="Members" />
+          <NavigationProperty Name="Project" Relationship="ProjectModel.FK_Project_Employee" FromRole="Employee" ToRole="Project" />
+          <NavigationProperty Name="Project1" Relationship="ProjectModel.FK_Project_Employee1" FromRole="Employee" ToRole="Project" />
+          <NavigationProperty Name="Project2" Relationship="ProjectModel.FK_Project_Employee2" FromRole="Employee" ToRole="Project" />
+          <NavigationProperty Name="ProjectDiscuss" Relationship="ProjectModel.FK_ProjectDiscuss_Employee" FromRole="Employee" ToRole="ProjectDiscuss" />
+          <NavigationProperty Name="TaskDetail" Relationship="ProjectModel.FK_TaskDetail_Employee" FromRole="Employee" ToRole="TaskDetail" />
+          <NavigationProperty Name="Tasks" Relationship="ProjectModel.FK_Tasks_Employee" FromRole="Employee" ToRole="Tasks" />
+          <NavigationProperty Name="Project3" Relationship="ProjectModel.ProjectMembers" FromRole="Employee" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="JobTitle">
+          <Key>
+            <PropertyRef Name="TitleGUID" />
+          </Key>
+          <Property Name="TitleGUID" Type="Guid" Nullable="false" />
+          <Property Name="TitleID" Type="Int32" Nullable="false" />
+          <Property Name="TitleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="ProjectModel.FK_Employee_JobTitle" FromRole="JobTitle" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Meeting">
+          <Key>
+            <PropertyRef Name="MeetingID" />
+          </Key>
+          <Property Name="ProjectGUID" Type="Guid" />
+          <Property Name="MeetingID" Type="Guid" Nullable="false" />
+          <Property Name="MeetingName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Project" Relationship="ProjectModel.FK_Meeting_Project" FromRole="Meeting" ToRole="Project" />
+          <NavigationProperty Name="MeetingDetail" Relationship="ProjectModel.FK_MeetingDetail_Meeting" FromRole="Meeting" ToRole="MeetingDetail" />
+        </EntityType>
+        <EntityType Name="MeetingDetail">
+          <Key>
+            <PropertyRef Name="MeetingDetailID" />
+          </Key>
+          <Property Name="MeetingID" Type="Guid" />
+          <Property Name="MeetingDetailID" Type="Guid" Nullable="false" />
+          <Property Name="MeetingDetailName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RecorderID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Meeting" Relationship="ProjectModel.FK_MeetingDetail_Meeting" FromRole="MeetingDetail" ToRole="Meeting" />
+        </EntityType>
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="MemberGUID" />
+          </Key>
+          <Property Name="MemberGUID" Type="Guid" Nullable="false" />
+          <Property Name="EmployeeGUID" Type="Guid" />
+          <Property Name="MemberID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="PermissionsGUID" Type="Guid" />
+          <NavigationProperty Name="Employee" Relationship="ProjectModel.FK_Members_Employee" FromRole="Members" ToRole="Employee" />
+          <NavigationProperty Name="Permissions" Relationship="ProjectModel.FK_Members_Permissions" FromRole="Members" ToRole="Permissions" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="PermissionsGUID" />
+          </Key>
+          <Property Name="PermissionsGUID" Type="Guid" Nullable="false" />
+          <Property Name="PermissionsID" Type="Int32" />
+          <Property Name="PermissionsName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Members" Relationship="ProjectModel.FK_Members_Permissions" FromRole="Permissions" ToRole="Members" />
+        </EntityType>
+        <EntityType Name="PreTasks">
+          <Key>
+            <PropertyRef Name="TaskGUID" />
+          </Key>
+          <Property Name="TaskGUID" Type="Guid" Nullable="false" />
+          <Property Name="PreTaskGUID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="PreTasks1" Relationship="ProjectModel.FK_PreTasks_PreTasks" FromRole="PreTasks" ToRole="PreTasks1" />
+          <NavigationProperty Name="PreTasks2" Relationship="ProjectModel.FK_PreTasks_PreTasks" FromRole="PreTasks1" ToRole="PreTasks" />
+          <NavigationProperty Name="Tasks" Relationship="ProjectModel.FK_PreTasks_Tasks" FromRole="PreTasks" ToRole="Tasks" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectGUID" />
+          </Key>
+          <Property Name="ProjectID" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="ProjectGUID" Type="Guid" Nullable="false" />
+          <Property Name="RequiredDeptGUID" Type="Guid" />
+          <Property Name="RequiredDeptPMGUID" Type="Guid" />
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EstStartDate" Type="DateTime" Precision="3" />
+          <Property Name="EstEndDate" Type="DateTime" Precision="3" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="InChargeDeptGUID" Type="Guid" />
+          <Property Name="InChargeDeptPMGUID" Type="Guid" />
+          <Property Name="ProjectStatusID" Type="Int32" />
+          <Property Name="ProjectCategoryID" Type="Int32" />
+          <Property Name="ProjectSupervisorGUID" Type="Guid" />
+          <Property Name="IsGeneralManagerConcerned" Type="Boolean" />
+          <Property Name="ProjectBudget" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Department" Relationship="ProjectModel.FK_Project_Department" FromRole="Project" ToRole="Department" />
+          <NavigationProperty Name="Department1" Relationship="ProjectModel.FK_Project_Department1" FromRole="Project" ToRole="Department" />
+          <NavigationProperty Name="Employee" Relationship="ProjectModel.FK_Project_Employee" FromRole="Project" ToRole="Employee" />
+          <NavigationProperty Name="Employee1" Relationship="ProjectModel.FK_Project_Employee1" FromRole="Project" ToRole="Employee" />
+          <NavigationProperty Name="Employee2" Relationship="ProjectModel.FK_Project_Employee2" FromRole="Project" ToRole="Employee" />
+          <NavigationProperty Name="Meeting" Relationship="ProjectModel.FK_Meeting_Project" FromRole="Project" ToRole="Meeting" />
+          <NavigationProperty Name="ProjectCategory" Relationship="ProjectModel.FK_Project_ProjectCategory" FromRole="Project" ToRole="ProjectCategory" />
+          <NavigationProperty Name="ProjectStatus" Relationship="ProjectModel.FK_Project_ProjectStatus" FromRole="Project" ToRole="ProjectStatus" />
+          <NavigationProperty Name="Tasks" Relationship="ProjectModel.FK_Tasks_Project" FromRole="Project" ToRole="Tasks" />
+          <NavigationProperty Name="Employee3" Relationship="ProjectModel.ProjectMembers" FromRole="Project" ToRole="Employee" />
+          <NavigationProperty Name="Department2" Relationship="ProjectModel.ProjectRelationDept" FromRole="Project" ToRole="Department" />
+        </EntityType>
+        <EntityType Name="ProjectCategory">
+          <Key>
+            <PropertyRef Name="ProjectCategoryID" />
+          </Key>
+          <Property Name="ProjectCategoryID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Project" Relationship="ProjectModel.FK_Project_ProjectCategory" FromRole="ProjectCategory" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="ProjectDiscuss">
+          <Key>
+            <PropertyRef Name="DiscussGUID" />
+          </Key>
+          <Property Name="DiscussGUID" Type="Guid" Nullable="false" />
+          <Property Name="EmployeeGUID" Type="Guid" />
+          <Property Name="DiscussTime" Type="DateTime" Precision="3" />
+          <Property Name="DiscussContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="ProjectModel.FK_ProjectDiscuss_Employee" FromRole="ProjectDiscuss" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="ProjectStatus">
+          <Key>
+            <PropertyRef Name="ProjectStatusID" />
+          </Key>
+          <Property Name="ProjectStatusID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Project" Relationship="ProjectModel.FK_Project_ProjectStatus" FromRole="ProjectStatus" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="ResourceCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TaskResource" Relationship="ProjectModel.FK_TaskResource_ResourceCategory" FromRole="ResourceCategory" ToRole="TaskResource" />
+        </EntityType>
+        <EntityType Name="TaskDetail">
+          <Key>
+            <PropertyRef Name="TaskDetailGUID" />
+          </Key>
+          <Property Name="TaskGUID" Type="Guid" />
+          <Property Name="TaskDetailGUID" Type="Guid" Nullable="false" />
+          <Property Name="TaskDetailName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TaskDetailStatusID" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="EmployeeGUID" Type="Guid" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="ProjectModel.FK_TaskDetail_Employee" FromRole="TaskDetail" ToRole="Employee" />
+          <NavigationProperty Name="TaskDetailStatus" Relationship="ProjectModel.FK_TaskDetail_TaskDetailStatus" FromRole="TaskDetail" ToRole="TaskDetailStatus" />
+          <NavigationProperty Name="Tasks" Relationship="ProjectModel.FK_TaskDetail_Tasks" FromRole="TaskDetail" ToRole="Tasks" />
+        </EntityType>
+        <EntityType Name="TaskDetailStatus">
+          <Key>
+            <PropertyRef Name="TaskDetailStatusID" />
+          </Key>
+          <Property Name="TaskDetailStatusID" Type="Int32" Nullable="false" />
+          <Property Name="TaskDetailStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TaskDetail" Relationship="ProjectModel.FK_TaskDetail_TaskDetailStatus" FromRole="TaskDetailStatus" ToRole="TaskDetail" />
+        </EntityType>
+        <EntityType Name="TaskModified">
+          <Key>
+            <PropertyRef Name="ModifiedGUID" />
+          </Key>
+          <Property Name="TaskGUID" Type="Guid" />
+          <Property Name="ModifiedGUID" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tasks" Relationship="ProjectModel.FK_TaskModified_Tasks" FromRole="TaskModified" ToRole="Tasks" />
+        </EntityType>
+        <EntityType Name="TaskResource">
+          <Key>
+            <PropertyRef Name="ResourceGUID" />
+          </Key>
+          <Property Name="TaskGUID" Type="Guid" />
+          <Property Name="ResourceGUID" Type="Guid" Nullable="false" />
+          <Property Name="ResourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResourceName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="Unit" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ResourceCategory" Relationship="ProjectModel.FK_TaskResource_ResourceCategory" FromRole="TaskResource" ToRole="ResourceCategory" />
+          <NavigationProperty Name="Tasks" Relationship="ProjectModel.FK_TaskResource_Tasks" FromRole="TaskResource" ToRole="Tasks" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="TaskGUID" />
+          </Key>
+          <Property Name="ProjectGUID" Type="Guid" />
+          <Property Name="TaskGUID" Type="Guid" Nullable="false" />
+          <Property Name="ParentTaskGUID" Type="Guid" />
+          <Property Name="TaskID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EstStartDate" Type="DateTime" Precision="3" />
+          <Property Name="EstEndDate" Type="DateTime" Precision="3" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="EstWorkTime" Type="Int32" />
+          <Property Name="WorkTime" Type="Int32" />
+          <Property Name="TaskStatusID" Type="Int32" />
+          <Property Name="EmployeeGUID" Type="Guid" />
+          <Property Name="Tag" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaskStatusIDChanged" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="ProjectModel.FK_Tasks_Employee" FromRole="Tasks" ToRole="Employee" />
+          <NavigationProperty Name="PreTasks" Relationship="ProjectModel.FK_PreTasks_Tasks" FromRole="Tasks" ToRole="PreTasks" />
+          <NavigationProperty Name="Project" Relationship="ProjectModel.FK_Tasks_Project" FromRole="Tasks" ToRole="Project" />
+          <NavigationProperty Name="TaskDetail" Relationship="ProjectModel.FK_TaskDetail_Tasks" FromRole="Tasks" ToRole="TaskDetail" />
+          <NavigationProperty Name="TaskModified" Relationship="ProjectModel.FK_TaskModified_Tasks" FromRole="Tasks" ToRole="TaskModified" />
+          <NavigationProperty Name="TaskResource" Relationship="ProjectModel.FK_TaskResource_Tasks" FromRole="Tasks" ToRole="TaskResource" />
+          <NavigationProperty Name="TaskStatus" Relationship="ProjectModel.FK_Tasks_TaskStatus" FromRole="Tasks" ToRole="TaskStatus" />
+        </EntityType>
+        <EntityType Name="TaskStatus">
+          <Key>
+            <PropertyRef Name="TaskStatusID" />
+          </Key>
+          <Property Name="TaskStatusID" Type="Int32" Nullable="false" />
+          <Property Name="TaskStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tasks" Relationship="ProjectModel.FK_Tasks_TaskStatus" FromRole="TaskStatus" ToRole="Tasks" />
+        </EntityType>
+        <EntityType Name="WidgetDetail">
+          <Key>
+            <PropertyRef Name="WidgetGUID" />
+          </Key>
+          <Property Name="WidgetGUID" Type="Guid" Nullable="false" />
+          <Property Name="WidgetName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WidgetDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WidgetImagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DashBoardGUID" Type="Guid" />
+          <NavigationProperty Name="Dashboard" Relationship="ProjectModel.FK_WidgetDetail_Dashboard" FromRole="WidgetDetail" ToRole="Dashboard" />
+        </EntityType>
+        <Association Name="FK_Calendar_Employee">
+          <End Type="ProjectModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="ProjectModel.Calendar" Role="Calendar" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Calendar">
+              <PropertyRef Name="CalendarGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dashboard_Employee">
+          <End Type="ProjectModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="ProjectModel.Dashboard" Role="Dashboard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Dashboard">
+              <PropertyRef Name="EmployeeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WidgetDetail_Dashboard">
+          <End Type="ProjectModel.Dashboard" Role="Dashboard" Multiplicity="0..1" />
+          <End Type="ProjectModel.WidgetDetail" Role="WidgetDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dashboard">
+              <PropertyRef Name="DashBoardGUID" />
+            </Principal>
+            <Dependent Role="WidgetDetail">
+              <PropertyRef Name="DashBoardGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_Department">
+          <End Type="ProjectModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="ProjectModel.Department" Role="Department1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="Department1">
+              <PropertyRef Name="ParentDepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Department">
+          <End Type="ProjectModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="ProjectModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Department">
+          <End Type="ProjectModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="ProjectModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="RequiredDeptGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Department1">
+          <End Type="ProjectModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="ProjectModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="InChargeDeptGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Employee">
+          <End Type="ProjectModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="ProjectModel.Employee" Role="Employee1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Employee1">
+              <PropertyRef Name="ManagerGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_JobTitle">
+          <End Type="ProjectModel.JobTitle" Role="JobTitle" Multiplicity="0..1" />
+          <End Type="ProjectModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobTitle">
+              <PropertyRef Name="TitleGUID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="TitleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Members_Employee">
+          <End Type="ProjectModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="ProjectModel.Members" Role="Members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Members">
+              <PropertyRef Name="EmployeeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Employee">
+          <End Type="ProjectModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="ProjectModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="RequiredDeptPMGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Employee1">
+          <End Type="ProjectModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="ProjectModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="InChargeDeptPMGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Employee2">
+          <End Type="ProjectModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="ProjectModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="ProjectSupervisorGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectDiscuss_Employee">
+          <End Type="ProjectModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="ProjectModel.ProjectDiscuss" Role="ProjectDiscuss" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="ProjectDiscuss">
+              <PropertyRef Name="EmployeeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskDetail_Employee">
+          <End Type="ProjectModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="ProjectModel.TaskDetail" Role="TaskDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="TaskDetail">
+              <PropertyRef Name="EmployeeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_Employee">
+          <End Type="ProjectModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="ProjectModel.Tasks" Role="Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeGUID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="EmployeeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Meeting_Project">
+          <End Type="ProjectModel.Project" Role="Project" Multiplicity="0..1" />
+          <End Type="ProjectModel.Meeting" Role="Meeting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectGUID" />
+            </Principal>
+            <Dependent Role="Meeting">
+              <PropertyRef Name="ProjectGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MeetingDetail_Meeting">
+          <End Type="ProjectModel.Meeting" Role="Meeting" Multiplicity="0..1" />
+          <End Type="ProjectModel.MeetingDetail" Role="MeetingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meeting">
+              <PropertyRef Name="MeetingID" />
+            </Principal>
+            <Dependent Role="MeetingDetail">
+              <PropertyRef Name="MeetingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Members_Permissions">
+          <End Type="ProjectModel.Permissions" Role="Permissions" Multiplicity="0..1" />
+          <End Type="ProjectModel.Members" Role="Members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissions">
+              <PropertyRef Name="PermissionsGUID" />
+            </Principal>
+            <Dependent Role="Members">
+              <PropertyRef Name="PermissionsGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PreTasks_PreTasks">
+          <End Type="ProjectModel.PreTasks" Role="PreTasks" Multiplicity="1" />
+          <End Type="ProjectModel.PreTasks" Role="PreTasks1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PreTasks">
+              <PropertyRef Name="TaskGUID" />
+            </Principal>
+            <Dependent Role="PreTasks1">
+              <PropertyRef Name="PreTaskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PreTasks_Tasks">
+          <End Type="ProjectModel.Tasks" Role="Tasks" Multiplicity="1" />
+          <End Type="ProjectModel.PreTasks" Role="PreTasks" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="TaskGUID" />
+            </Principal>
+            <Dependent Role="PreTasks">
+              <PropertyRef Name="TaskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_ProjectCategory">
+          <End Type="ProjectModel.ProjectCategory" Role="ProjectCategory" Multiplicity="0..1" />
+          <End Type="ProjectModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectCategory">
+              <PropertyRef Name="ProjectCategoryID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="ProjectCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_ProjectStatus">
+          <End Type="ProjectModel.ProjectStatus" Role="ProjectStatus" Multiplicity="0..1" />
+          <End Type="ProjectModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectStatus">
+              <PropertyRef Name="ProjectStatusID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="ProjectStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_Project">
+          <End Type="ProjectModel.Project" Role="Project" Multiplicity="0..1" />
+          <End Type="ProjectModel.Tasks" Role="Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectGUID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="ProjectGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskResource_ResourceCategory">
+          <End Type="ProjectModel.ResourceCategory" Role="ResourceCategory" Multiplicity="0..1" />
+          <End Type="ProjectModel.TaskResource" Role="TaskResource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResourceCategory">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="TaskResource">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskDetail_TaskDetailStatus">
+          <End Type="ProjectModel.TaskDetailStatus" Role="TaskDetailStatus" Multiplicity="0..1" />
+          <End Type="ProjectModel.TaskDetail" Role="TaskDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskDetailStatus">
+              <PropertyRef Name="TaskDetailStatusID" />
+            </Principal>
+            <Dependent Role="TaskDetail">
+              <PropertyRef Name="TaskDetailStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskDetail_Tasks">
+          <End Type="ProjectModel.Tasks" Role="Tasks" Multiplicity="0..1" />
+          <End Type="ProjectModel.TaskDetail" Role="TaskDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="TaskGUID" />
+            </Principal>
+            <Dependent Role="TaskDetail">
+              <PropertyRef Name="TaskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskModified_Tasks">
+          <End Type="ProjectModel.Tasks" Role="Tasks" Multiplicity="0..1" />
+          <End Type="ProjectModel.TaskModified" Role="TaskModified" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="TaskGUID" />
+            </Principal>
+            <Dependent Role="TaskModified">
+              <PropertyRef Name="TaskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskResource_Tasks">
+          <End Type="ProjectModel.Tasks" Role="Tasks" Multiplicity="0..1" />
+          <End Type="ProjectModel.TaskResource" Role="TaskResource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="TaskGUID" />
+            </Principal>
+            <Dependent Role="TaskResource">
+              <PropertyRef Name="TaskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_TaskStatus">
+          <End Type="ProjectModel.TaskStatus" Role="TaskStatus" Multiplicity="0..1" />
+          <End Type="ProjectModel.Tasks" Role="Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskStatus">
+              <PropertyRef Name="TaskStatusID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="TaskStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProjectMembers">
+          <End Type="ProjectModel.Employee" Role="Employee" Multiplicity="*" />
+          <End Type="ProjectModel.Project" Role="Project" Multiplicity="*" />
+        </Association>
+        <Association Name="ProjectRelationDept">
+          <End Type="ProjectModel.Department" Role="Department" Multiplicity="*" />
+          <End Type="ProjectModel.Project" Role="Project" Multiplicity="*" />
+        </Association>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjectModelStoreContainer" CdmEntityContainer="ProjectEntities">
+          <EntitySetMapping Name="Calendar">
+            <EntityTypeMapping TypeName="ProjectModel.Calendar">
+              <MappingFragment StoreEntitySet="Calendar">
+                <ScalarProperty Name="Blue" ColumnName="Blue" />
+                <ScalarProperty Name="Green" ColumnName="Green" />
+                <ScalarProperty Name="Red" ColumnName="Red" />
+                <ScalarProperty Name="Opacity" ColumnName="Opacity" />
+                <ScalarProperty Name="EventTitle" ColumnName="EventTitle" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EmployeeGUID" ColumnName="EmployeeGUID" />
+                <ScalarProperty Name="CalendarGUID" ColumnName="CalendarGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dashboard">
+            <EntityTypeMapping TypeName="ProjectModel.Dashboard">
+              <MappingFragment StoreEntitySet="Dashboard">
+                <ScalarProperty Name="EmployeeGUID" ColumnName="EmployeeGUID" />
+                <ScalarProperty Name="WidgetHeight" ColumnName="WidgetHeight" />
+                <ScalarProperty Name="WidgetWidth" ColumnName="WidgetWidth" />
+                <ScalarProperty Name="PositionLeft" ColumnName="PositionLeft" />
+                <ScalarProperty Name="PositionTop" ColumnName="PositionTop" />
+                <ScalarProperty Name="SequenceID" ColumnName="SequenceID" />
+                <ScalarProperty Name="DashBoardGUID" ColumnName="DashBoardGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="ProjectModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="ParentDepartmentGUID" ColumnName="ParentDepartmentGUID" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="ProjectModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="TitleGUID" ColumnName="TitleGUID" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+                <ScalarProperty Name="ManagerGUID" ColumnName="ManagerGUID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeGUID" ColumnName="EmployeeGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobTitle">
+            <EntityTypeMapping TypeName="ProjectModel.JobTitle">
+              <MappingFragment StoreEntitySet="JobTitle">
+                <ScalarProperty Name="TitleName" ColumnName="TitleName" />
+                <ScalarProperty Name="TitleID" ColumnName="TitleID" />
+                <ScalarProperty Name="TitleGUID" ColumnName="TitleGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Meeting">
+            <EntityTypeMapping TypeName="ProjectModel.Meeting">
+              <MappingFragment StoreEntitySet="Meeting">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="MeetingName" ColumnName="MeetingName" />
+                <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
+                <ScalarProperty Name="ProjectGUID" ColumnName="ProjectGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MeetingDetail">
+            <EntityTypeMapping TypeName="ProjectModel.MeetingDetail">
+              <MappingFragment StoreEntitySet="MeetingDetail">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="RecorderID" ColumnName="RecorderID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MeetingDetailName" ColumnName="MeetingDetailName" />
+                <ScalarProperty Name="MeetingDetailID" ColumnName="MeetingDetailID" />
+                <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="ProjectModel.Members">
+              <MappingFragment StoreEntitySet="Members">
+                <ScalarProperty Name="PermissionsGUID" ColumnName="PermissionsGUID" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="EmployeeGUID" ColumnName="EmployeeGUID" />
+                <ScalarProperty Name="MemberGUID" ColumnName="MemberGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="ProjectModel.Permissions">
+              <MappingFragment StoreEntitySet="Permissions">
+                <ScalarProperty Name="PermissionsName" ColumnName="PermissionsName" />
+                <ScalarProperty Name="PermissionsID" ColumnName="PermissionsID" />
+                <ScalarProperty Name="PermissionsGUID" ColumnName="PermissionsGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PreTasks">
+            <EntityTypeMapping TypeName="ProjectModel.PreTasks">
+              <MappingFragment StoreEntitySet="PreTasks">
+                <ScalarProperty Name="PreTaskGUID" ColumnName="PreTaskGUID" />
+                <ScalarProperty Name="TaskGUID" ColumnName="TaskGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project">
+            <EntityTypeMapping TypeName="ProjectModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProjectBudget" ColumnName="ProjectBudget" />
+                <ScalarProperty Name="IsGeneralManagerConcerned" ColumnName="IsGeneralManagerConcerned" />
+                <ScalarProperty Name="ProjectSupervisorGUID" ColumnName="ProjectSupervisorGUID" />
+                <ScalarProperty Name="ProjectCategoryID" ColumnName="ProjectCategoryID" />
+                <ScalarProperty Name="ProjectStatusID" ColumnName="ProjectStatusID" />
+                <ScalarProperty Name="InChargeDeptPMGUID" ColumnName="InChargeDeptPMGUID" />
+                <ScalarProperty Name="InChargeDeptGUID" ColumnName="InChargeDeptGUID" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EstEndDate" ColumnName="EstEndDate" />
+                <ScalarProperty Name="EstStartDate" ColumnName="EstStartDate" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="RequiredDeptPMGUID" ColumnName="RequiredDeptPMGUID" />
+                <ScalarProperty Name="RequiredDeptGUID" ColumnName="RequiredDeptGUID" />
+                <ScalarProperty Name="ProjectGUID" ColumnName="ProjectGUID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectCategory">
+            <EntityTypeMapping TypeName="ProjectModel.ProjectCategory">
+              <MappingFragment StoreEntitySet="ProjectCategory">
+                <ScalarProperty Name="ProjectCategoryName" ColumnName="ProjectCategoryName" />
+                <ScalarProperty Name="ProjectCategoryID" ColumnName="ProjectCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectDiscuss">
+            <EntityTypeMapping TypeName="ProjectModel.ProjectDiscuss">
+              <MappingFragment StoreEntitySet="ProjectDiscuss">
+                <ScalarProperty Name="DiscussContent" ColumnName="DiscussContent" />
+                <ScalarProperty Name="DiscussTime" ColumnName="DiscussTime" />
+                <ScalarProperty Name="EmployeeGUID" ColumnName="EmployeeGUID" />
+                <ScalarProperty Name="DiscussGUID" ColumnName="DiscussGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectStatus">
+            <EntityTypeMapping TypeName="ProjectModel.ProjectStatus">
+              <MappingFragment StoreEntitySet="ProjectStatus">
+                <ScalarProperty Name="ProjectStatusName" ColumnName="ProjectStatusName" />
+                <ScalarProperty Name="ProjectStatusID" ColumnName="ProjectStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResourceCategory">
+            <EntityTypeMapping TypeName="ProjectModel.ResourceCategory">
+              <MappingFragment StoreEntitySet="ResourceCategory">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskDetail">
+            <EntityTypeMapping TypeName="ProjectModel.TaskDetail">
+              <MappingFragment StoreEntitySet="TaskDetail">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EmployeeGUID" ColumnName="EmployeeGUID" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="TaskDetailStatusID" ColumnName="TaskDetailStatusID" />
+                <ScalarProperty Name="TaskDetailName" ColumnName="TaskDetailName" />
+                <ScalarProperty Name="TaskDetailGUID" ColumnName="TaskDetailGUID" />
+                <ScalarProperty Name="TaskGUID" ColumnName="TaskGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskDetailStatus">
+            <EntityTypeMapping TypeName="ProjectModel.TaskDetailStatus">
+              <MappingFragment StoreEntitySet="TaskDetailStatus">
+                <ScalarProperty Name="TaskDetailStatusName" ColumnName="TaskDetailStatusName" />
+                <ScalarProperty Name="TaskDetailStatusID" ColumnName="TaskDetailStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskModified">
+            <EntityTypeMapping TypeName="ProjectModel.TaskModified">
+              <MappingFragment StoreEntitySet="TaskModified">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ModifiedGUID" ColumnName="ModifiedGUID" />
+                <ScalarProperty Name="TaskGUID" ColumnName="TaskGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskResource">
+            <EntityTypeMapping TypeName="ProjectModel.TaskResource">
+              <MappingFragment StoreEntitySet="TaskResource">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ResourceName" ColumnName="ResourceName" />
+                <ScalarProperty Name="ResourceID" ColumnName="ResourceID" />
+                <ScalarProperty Name="ResourceGUID" ColumnName="ResourceGUID" />
+                <ScalarProperty Name="TaskGUID" ColumnName="TaskGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="ProjectModel.Tasks">
+              <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="TaskStatusIDChanged" ColumnName="TaskStatusIDChanged" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="EmployeeGUID" ColumnName="EmployeeGUID" />
+                <ScalarProperty Name="TaskStatusID" ColumnName="TaskStatusID" />
+                <ScalarProperty Name="WorkTime" ColumnName="WorkTime" />
+                <ScalarProperty Name="EstWorkTime" ColumnName="EstWorkTime" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EstEndDate" ColumnName="EstEndDate" />
+                <ScalarProperty Name="EstStartDate" ColumnName="EstStartDate" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="ParentTaskGUID" ColumnName="ParentTaskGUID" />
+                <ScalarProperty Name="TaskGUID" ColumnName="TaskGUID" />
+                <ScalarProperty Name="ProjectGUID" ColumnName="ProjectGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskStatus">
+            <EntityTypeMapping TypeName="ProjectModel.TaskStatus">
+              <MappingFragment StoreEntitySet="TaskStatus">
+                <ScalarProperty Name="TaskStatusName" ColumnName="TaskStatusName" />
+                <ScalarProperty Name="TaskStatusID" ColumnName="TaskStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WidgetDetail">
+            <EntityTypeMapping TypeName="ProjectModel.WidgetDetail">
+              <MappingFragment StoreEntitySet="WidgetDetail">
+                <ScalarProperty Name="DashBoardGUID" ColumnName="DashBoardGUID" />
+                <ScalarProperty Name="WidgetImagePath" ColumnName="WidgetImagePath" />
+                <ScalarProperty Name="WidgetDesc" ColumnName="WidgetDesc" />
+                <ScalarProperty Name="WidgetName" ColumnName="WidgetName" />
+                <ScalarProperty Name="WidgetGUID" ColumnName="WidgetGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ProjectMembers" TypeName="ProjectModel.ProjectMembers" StoreEntitySet="ProjectMembers">
+            <EndProperty Name="Project">
+              <ScalarProperty Name="ProjectGUID" ColumnName="ProjectGUID" />
+            </EndProperty>
+            <EndProperty Name="Employee">
+              <ScalarProperty Name="EmployeeGUID" ColumnName="EmployeeGUID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ProjectRelationDept" TypeName="ProjectModel.ProjectRelationDept" StoreEntitySet="ProjectRelationDept">
+            <EndProperty Name="Project">
+              <ScalarProperty Name="ProjectGUID" ColumnName="ProjectGUID" />
+            </EndProperty>
+            <EndProperty Name="Department">
+              <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ProjectModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

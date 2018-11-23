@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Project.Models.Members>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>會員</h2>
+
+<a href="~/Members/Insert" class="btn btn-warning">新增會員</a>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>會員帳號</th>
+            <th>會員密碼</th>
+            <th>新增日期</th>
+            <th>修改日期</th>
+            <th>最後登入日期</th>
+            <th>修改</th>
+            <th>刪除</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var _members in Model)
+        {
+            <tr>
+                <td>@_members.MemberID</td>
+                <td>@_members.Password</td>
+                <td>@_members.CreateDate</td>
+                <td>@_members.ModifiedDate</td>
+                <td>@_members.LastLoginDate</td>
+                <td><a href="~/Members/Edit/@_members.MemberGUID" class="btn btn-primary">修改</a></td>
+                <td><a href="~/Members/Delete/@_members.MemberGUID" class="btn btn-danger">刪除</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+
