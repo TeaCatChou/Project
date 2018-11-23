@@ -27,8 +27,33 @@ namespace Project.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Edit(Guid? id)
+        {
 
+            return View(permissionsRepository.GetById(id));
+        }
 
+        [HttpPost]
+        public ActionResult Edit(Permissions permissions)
+        {
+            Permissions _permissions = permissionsRepository.GetById(permissions.PermissionsGUID);
+            _permissions.PermissionsID = permissions.PermissionsID;
+            _permissions.PermissionsName = permissions.PermissionsName;
+
+            permissionsRepository.Edit(_permissions);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Delete(Guid? id)
+        {
+
+            Permissions _permissions = permissionsRepository.GetById(id);
+            permissionsRepository.Delete(_permissions);
+
+            return RedirectToAction("Index");
+        }
 
     }
 }

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Project.Models.Project>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>專案</h2>
+
+<a href="~/Project/Insert" class="btn btn-warning">新增專案</a>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>權限編號</th>
+            <th>權限名稱</th>
+            <th>修改</th>
+            <th>刪除</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var _project in Model)
+        {
+        <tr>
+            <td>@_project.ProjectID</td>
+            <td>@_project.ProjectName</td>
+            <td>@_project.EstStartDate</td>
+            <td>@_project.EstEndDate</td>
+            <td>@_project.StartDate</td>
+            <td>@_project.EndDate</td>
+            <td>@_project.ProjectStatusID</td>
+            <td>@_project.ProjectCategoryID</td>
+            <td>@_project.IsGeneralManagerConcerned</td>
+            <td>@_project.ProjectBudget</td>
+            <td>@_project.Description</td>
+            <td><a href="~/Project/Edit/@_project.ProjectGUID" class="btn btn-primary">修改</a></td>
+            <td><a href="~/Project/Delete/@_project.ProjectGUID" class="btn btn-danger">刪除</a></td>
+        </tr>
+        }
+
+    </tbody>
+</table>
+
