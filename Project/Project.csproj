@@ -173,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
@@ -307,6 +308,8 @@
     <Content Include="Views\Permissions\Insert.cshtml" />
     <Content Include="Views\Permissions\Edit.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Department\Insert.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
